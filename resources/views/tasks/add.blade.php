@@ -18,6 +18,16 @@
             class="form-control" rows="3">
         </textarea>
           </div>
+          @if(session()->has("success"))
+          <div class="alert alert-success" >
+              {{session()->get("success")}}
+          </div>
+          @endif
+          @if(session("error"))
+          <div class="alert alert-danger" >
+              {{session("error")}}
+          </div>
+          @endif
           <button class="btn btn-success rounded-pill" type="submit">Submit</button>
     </form>
 </div>
