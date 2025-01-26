@@ -1,4 +1,4 @@
-@extends("layouts.default")
+@extends("layouts.auth")
 @section("style")
 <style>
     html,
@@ -22,7 +22,6 @@ body {
 }
 
 .form-signin input[type="password"] {
-  margin-bottom: 10px;
   border-top-left-radius: 0;
   border-top-right-radius: 0;
 }
@@ -31,23 +30,42 @@ body {
 @section("content")
 <main class="form-signin w-100 m-auto">
     <form method="POST" action="{{route("register.post")}}">
+        @csrf
       <img class="mb-4" src="{{asset("assets/img/logo_login.svg")}}" alt="" width="72" height="57">
       <h1 class="h3 mb-3 fw-normal">Create your account</h1>
   
       <div class="form-floating">
         <input name="fullname" type="text" class="form-control" id="floatingInput" placeholder="Enter name">
         <label for="floatingInput">Full name</label>
+        @error('fullname')
+        <span class="text-danger">{{ $message }}</span>            
+        @enderror
       </div>
-
       <div class="form-floating">
         <input name="email" type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
         <label for="floatingInput">Email address</label>
-      </div>
-      <div class="form-floating">
-        <input name="password" type="password" class="form-control" id="floatingPassword" placeholder="Password">
-        <label for="floatingPassword">Password</label>
+        @error('email')
+        <span class="text-danger">{{ $message }}</span>            
+        @enderror
       </div>
 
+      <div class="form-floating" style="margin-bottom: 10px">
+        <input name="password" type="password" class="form-control" id="floatingPassword" placeholder="Password">
+        <label for="floatingPassword">Password</label>
+        @error('password')
+        <span class="text-danger">{{ $message }}</span>            
+        @enderror
+      </div>
+      @if(session()->has("success"))
+          <div class="alert alert-success" >
+              {{session()->get("success")}}
+          </div>
+      @endif
+      @if(session("error"))
+          <div class="alert alert-danger" >
+              {{session("error")}}
+          </div>
+      @endif
       <button class="btn btn-primary w-100 py-2" type="submit">Register</button>
       <p class="mt-5 mb-3 text-body-secondary">&copy; 2025</p>
     </form>
