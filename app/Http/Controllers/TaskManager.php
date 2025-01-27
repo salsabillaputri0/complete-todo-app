@@ -36,4 +36,12 @@ class TaskManager extends Controller
     ->with("error", "Task not added");
    }
 
+   function updateTaskStatus($id)
+   {
+    if(Tasks::where('id', $id)->update(['status' => "completed"])){
+        return redirect(route("home"))->with("success", "Task completed");
+    }
+    return redirect(route("home"))->with("error", "Error occurred while updating, try again");
+   }
+
 }

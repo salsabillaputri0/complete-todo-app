@@ -25,5 +25,8 @@ Route::middleware("auth")->group(function (){
 
     Route::post("task/add", [TaskManager::class,"addTaskPost"])
     ->name("task.add.post");
+
+    Route::get("task/status/{id}", [TaskManager::class,"updateTaskStatus"])
+    ->name("task.status.update");
     
 });
