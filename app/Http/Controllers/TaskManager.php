@@ -9,7 +9,7 @@ class TaskManager extends Controller
 {
     function listTask()
     {
-        $tasks = Tasks::all();
+        $tasks = Tasks::where("status", NULL)->paginate(3);
         return view("welcome", compact('tasks'));
     }
    function addTask()
@@ -42,6 +42,14 @@ class TaskManager extends Controller
         return redirect(route("home"))->with("success", "Task completed");
     }
     return redirect(route("home"))->with("error", "Error occurred while updating, try again");
+   }
+
+   function deleteTask($id)
+   {
+    if(Tasks::where('id', $id)->delete()){
+        return redirect(route("home"))->with("success", "Task deleted");
+    }
+    return redirect(route("home"))->with("error", "Error occurred while deleting, try again");
    }
 
 }

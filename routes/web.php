@@ -28,5 +28,9 @@ Route::middleware("auth")->group(function (){
 
     Route::get("task/status/{id}", [TaskManager::class,"updateTaskStatus"])
     ->name("task.status.update");
+
+    Route::get("task/delete/{id}", [TaskManager::class,"deleteTask"])
+    ->name("task.delete");
     
+
 });
