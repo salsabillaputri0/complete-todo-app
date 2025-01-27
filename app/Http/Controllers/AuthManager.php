@@ -30,6 +30,12 @@ class AuthManager extends Controller
         ->with("error","Invalid Email or Password");
     }
 
+    function logout()
+    {
+        Auth::logout();
+        return redirect(route("login"));
+    }
+
     function register()
     {
         return view('auth.register');
